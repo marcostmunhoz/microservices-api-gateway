@@ -40,4 +40,18 @@ trait ApiResponserTrait
             $status
         );
     }
+
+    /**
+     * Returns a error message.
+     *
+     * @param string $message the error returned by the application
+     * @param int    $status  the response status code
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function errorMessage($message, int $status)
+    {
+        return response($message, $status)
+            ->header('Content-Type', 'application/json');
+    }
 }
