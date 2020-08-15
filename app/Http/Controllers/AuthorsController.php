@@ -14,12 +14,33 @@ class AuthorsController extends Controller
     use ApiResponserTrait;
 
     /**
+     * The HTTP service client instance.
+     *
+     * @var \App\Services\AuthorsServiceClient
+     */
+    protected $client;
+
+    /**
+     * Constructor.
+     *
+     * @param \App\Services\AuthorsServiceClient $client
+     *
+     * @return void
+     */
+    public function __construct(\App\Services\AuthorsServiceClient $client)
+    {
+        $this->client = $client;
+    }
+
+    /**
      * Returns the list of books.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+
+        return $this->successResponse($this->client->getAuthors());
     }
 
     /**

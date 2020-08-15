@@ -12,17 +12,15 @@ trait ApiResponserTrait
     /**
      * Returns a successful response.
      *
-     * @param string|array|null $data   the data thats going to be sent
-     * @param int               $status the response status code
+     * @param string $data   the data thats going to be sent
+     * @param int    $status the response status code
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function successResponse($data = null, int $status = Response::HTTP_OK)
     {
-        return response()->json(
-            compact('status', 'data'),
-            $status
-        );
+        return response($data, $status)
+            ->header('Content-Type', 'application/json');
     }
 
     /**
@@ -47,7 +45,7 @@ trait ApiResponserTrait
      * @param string $message the error returned by the application
      * @param int    $status  the response status code
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function errorMessage($message, int $status)
     {

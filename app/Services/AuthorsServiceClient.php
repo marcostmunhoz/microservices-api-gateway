@@ -16,4 +16,17 @@ class AuthorsServiceClient extends AbstractServiceClient
     {
         parent::__construct(config('services.authors.base_uri'));
     }
+
+    /**
+     * Gets the authors from the service.
+     *
+     * @return array
+     */
+    public function getAuthors()
+    {
+        return $this->request(
+            'GET',
+            '/authors'
+        );
+    }
 }
