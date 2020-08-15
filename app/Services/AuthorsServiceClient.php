@@ -29,4 +29,20 @@ class AuthorsServiceClient extends AbstractServiceClient
             '/authors'
         );
     }
+
+    /**
+     * Creates a new author.
+     *
+     * @param array $data
+     *
+     * @return void
+     */
+    public function createAuthor(array $data)
+    {
+        return $this->request(
+            'POST',
+            '/authors',
+            ['json' => $data]
+        );
+    }
 }

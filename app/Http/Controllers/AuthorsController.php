@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Book;
 use App\Traits\ApiResponserTrait;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 /**
  * Authors Controller.
@@ -39,7 +40,6 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-
         return $this->successResponse($this->client->getAuthors());
     }
 
@@ -63,6 +63,10 @@ class AuthorsController extends Controller
      */
     public function store(Request $request)
     {
+        return $this->successResponse(
+            $this->client->createAuthor($request->all()),
+            Response::HTTP_CREATED
+        );
     }
 
     /**
