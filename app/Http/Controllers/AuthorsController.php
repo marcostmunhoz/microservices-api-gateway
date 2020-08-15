@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Book;
 use App\Traits\ApiResponserTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -34,7 +33,7 @@ class AuthorsController extends Controller
     }
 
     /**
-     * Returns the list of books.
+     * Returns the list of authors.
      *
      * @return \Illuminate\Http\Response
      */
@@ -44,18 +43,19 @@ class AuthorsController extends Controller
     }
 
     /**
-     * Shows a given book.
+     * Shows a given author.
      *
-     * @param int $book
+     * @param int $author
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(int $book)
+    public function show(int $author)
     {
+        return $this->successResponse($this->client->getAuthor($author));
     }
 
     /**
-     * Creates a new book.
+     * Creates a new author.
      *
      * @param \Illuminate\Http\Request $request
      *
@@ -70,25 +70,32 @@ class AuthorsController extends Controller
     }
 
     /**
-     * Updates a given book.
+     * Updates a given author.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $book
+     * @param int                      $author
      *
      * @return void
      */
-    public function update(Request $request, int $book)
+    public function update(Request $request, int $author)
     {
+        return $this->successResponse(
+            $this->client->updateAuthor(
+                $author,
+                $request->all()
+            )
+        );
     }
 
     /**
-     * Deletes a given book.
+     * Deletes a given author.
      *
-     * @param int $book
+     * @param int $author
      *
      * @return void
      */
-    public function destroy(int $book)
+    public function destroy(int $author)
     {
+        return $this->successResponse($this->client->destroyAuthor($author));
     }
 }

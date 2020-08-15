@@ -31,6 +31,21 @@ class AuthorsServiceClient extends AbstractServiceClient
     }
 
     /**
+     * Gets an author from the service.
+     *
+     * @param int $author
+     *
+     * @return array
+     */
+    public function getAuthor(int $author)
+    {
+        return $this->request(
+            'GET',
+            '/authors/'.$author
+        );
+    }
+
+    /**
      * Creates a new author.
      *
      * @param array $data
@@ -43,6 +58,38 @@ class AuthorsServiceClient extends AbstractServiceClient
             'POST',
             '/authors',
             ['json' => $data]
+        );
+    }
+
+    /**
+     * Updates an author.
+     *
+     * @param int   $author
+     * @param array $data
+     *
+     * @return array
+     */
+    public function updateAuthor(int $author, array $data)
+    {
+        return $this->request(
+            'PATCH',
+            '/authors/'.$author,
+            ['json' => $data]
+        );
+    }
+
+    /**
+     * Removes an author from the service.
+     *
+     * @param int $author
+     *
+     * @return array
+     */
+    public function destroyAuthor(int $author)
+    {
+        return $this->request(
+            'DELETE',
+            '/authors/'.$author
         );
     }
 }
