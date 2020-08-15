@@ -58,12 +58,17 @@ class BooksController extends Controller
     /**
      * Creates a new book.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request           $request
+     * @param \App\Services\AuthorsServiceClient $authorsServiceClient
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(
+        Request $request,
+        \App\Services\AuthorsServiceClient $authorsServiceClient
+    ) {
+        $authorsServiceClient->getAuthor($request->author_id);
+
         return $this->successResponse(
             $this->client->createBook($request->all()),
             Response::HTTP_CREATED
@@ -73,13 +78,21 @@ class BooksController extends Controller
     /**
      * Updates a given book.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $book
+     * @param \Illuminate\Http\Request           $request
+     * @param int                                $book
+     * @param \App\Services\AuthorsServiceClient $authorsServiceClient
      *
      * @return void
      */
-    public function update(Request $request, int $book)
-    {
+    public function update(
+        Request $request,
+        int $book,
+        \App\Services\AuthorsServiceClient $authorsServiceClient
+    ) {
+        if ($request->has('author_id')) {
+            $authorsServiceClient->getAuthor($request->author_id);
+        }
+
         return $this->successResponse(
             $this->client->updateBook(
                 $book,
