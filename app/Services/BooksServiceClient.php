@@ -14,7 +14,10 @@ class BooksServiceClient extends AbstractServiceClient
      */
     public function __construct()
     {
-        parent::__construct(config('services.books.base_uri'));
+        parent::__construct(
+            config('services.books.base_uri'),
+            config('services.books.secret')
+        );
     }
 
     /**

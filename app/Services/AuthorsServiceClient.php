@@ -14,7 +14,10 @@ class AuthorsServiceClient extends AbstractServiceClient
      */
     public function __construct()
     {
-        parent::__construct(config('services.authors.base_uri'));
+        parent::__construct(
+            config('services.authors.base_uri'),
+            config('services.authors.secret')
+        );
     }
 
     /**

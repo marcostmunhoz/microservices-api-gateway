@@ -17,12 +17,19 @@ abstract class AbstractServiceClient
     /**
      * Constructor.
      *
-     * @param string $baseUri the base service URI
+     * @param string      $baseUri the base service URI
+     * @param string|null $secret  the authorization token
      *
      * @return void
      */
-    public function __construct(string $baseUri)
+    public function __construct(string $baseUri, ?string $secret = null)
     {
+        $headers = [];
+
+        if ($secret) {
+            $headers['Authorization'] = 'Basic '.base64_encode(':'.$secret);
+        }
+
         $this->client = new \GuzzleHttp\Client([
             'base_uri' => $baseUri,
         ]);
