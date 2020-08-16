@@ -32,6 +32,7 @@ abstract class AbstractServiceClient
 
         $this->client = new \GuzzleHttp\Client([
             'base_uri' => $baseUri,
+            'headers' => $headers,
         ]);
     }
 
