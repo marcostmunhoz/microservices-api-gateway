@@ -13,32 +13,41 @@
 |
 */
 
-$router->group(
-    [
-        'prefix' => '/authors',
-        'name' => 'authors.',
-    ],
-    function (\Laravel\Lumen\Routing\Router $router) {
-        $router->get('/', 'AuthorsController@index');
-        $router->get('/{author}', 'AuthorsController@show');
-        $router->post('/', 'AuthorsController@store');
-        $router->put('/{author}', 'AuthorsController@update');
-        $router->patch('/{author}', 'AuthorsController@update');
-        $router->delete('/{author}', 'AuthorsController@destroy');
-    }
-);
+$router->post('/auth/login', 'AuthController@login');
 
 $router->group(
     [
-        'prefix' => '/books',
-        'name' => 'books.',
+        'middleware' => 'auth',
     ],
     function (\Laravel\Lumen\Routing\Router $router) {
-        $router->get('/', 'BooksController@index');
-        $router->get('/{book}', 'BooksController@show');
-        $router->post('/', 'BooksController@store');
-        $router->put('/{book}', 'BooksController@update');
-        $router->patch('/{book}', 'BooksController@update');
-        $router->delete('/{book}', 'BooksController@destroy');
+        $router->group(
+            [
+                'prefix' => '/authors',
+                'name' => 'authors.',
+            ],
+            function (\Laravel\Lumen\Routing\Router $router) {
+                $router->get('/', 'AuthorsController@index');
+                $router->get('/{author}', 'AuthorsController@show');
+                $router->post('/', 'AuthorsController@store');
+                $router->put('/{author}', 'AuthorsController@update');
+                $router->patch('/{author}', 'AuthorsController@update');
+                $router->delete('/{author}', 'AuthorsController@destroy');
+            }
+        );
+
+        $router->group(
+            [
+                'prefix' => '/books',
+                'name' => 'books.',
+            ],
+            function (\Laravel\Lumen\Routing\Router $router) {
+                $router->get('/', 'BooksController@index');
+                $router->get('/{book}', 'BooksController@show');
+                $router->post('/', 'BooksController@store');
+                $router->put('/{book}', 'BooksController@update');
+                $router->patch('/{book}', 'BooksController@update');
+                $router->delete('/{book}', 'BooksController@destroy');
+            }
+        );
     }
 );
